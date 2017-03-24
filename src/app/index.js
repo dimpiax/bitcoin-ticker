@@ -10,6 +10,21 @@ import NotificationCenter, { Notification } from './managers/notification-center
 import System from './utils/system'
 import Utils from './utils/utils'
 
+const initSocket = (server: Object) => {
+    const io = require('socket.io')(server)
+    io.on('connection', (socket: Object) => {
+        console.log('connected', socket.id)
+
+        socket.on('disconnect', () => {
+            console.log('disconnected', socket.id)
+        })
+    })
+
+    NotificationCenter.setObserver(Notification.outputFeed, (data: Object) => {
+        io.emit('data', data)
+    })
+}
+
 const startRequesting = async (delay: number = 0): Promise<void> => {
     await Utils.delay(delay)
 
@@ -21,7 +36,7 @@ const startRequesting = async (delay: number = 0): Promise<void> => {
         mainModel.relationRate = relationRate
 
         // show in console
-        OutputService.showCurrencies(data, relationRate)
+        // OutputService.showCurrencies(data, relationRate)
 
         // emit for clients
         NotificationCenter.post(Notification.outputFeed,
@@ -37,7 +52,9 @@ const startRequesting = async (delay: number = 0): Promise<void> => {
     }
 }
 
-const init = () => {
+const init = (server: Object) => {
+    initSocket(server)
+
     // start timer requesting
     // TODO: adapt under node-schedule
     startRequesting(System.args.delay)

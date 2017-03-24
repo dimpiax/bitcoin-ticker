@@ -1,19 +1,25 @@
 module.exports = {
     "parserOptions": {
         "sourceType": "module",
-        "ecmaVersion": 8
+        "ecmaVersion": 8,
+        "ecmaFeatures": {
+            "jsx": true
+        }
     },
     "extends": "airbnb-base",
     "parser": "babel-eslint",
     "plugins": [
-        "flowtype"
+        "flowtype",
+        "react"
     ],
     "env": {
         "es6": true,
-        "node": true
+        "node": true,
+        "browser": true
     },
     "globals": {
-        "atom": true
+        "atom": true,
+        "React": true
     },
     "rules": {
         "no-undef": 2,
@@ -135,5 +141,6 @@ module.exports = {
             2,
             "always"
         ],
+        "react/jsx-uses-vars": 1
     }
 }

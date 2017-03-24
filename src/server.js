@@ -1,13 +1,20 @@
 /* @flow */
 
+import path from 'path'
 import express from 'express'
 import morgan from 'morgan'
 import bodyParser from 'body-parser'
 import methodOverride from 'method-override'
 
 import application from './app'
+import NotificationCenter, { Notification } from './app/managers/notification-center'
 
 const app = express()
+
+app.set('views', path.join(__dirname, 'views'))
+app.set('view engine', 'jsx')
+app.engine('jsx', require('express-react-views').createEngine())
+
 app.use(morgan('dev'))
 app.use(bodyParser.urlencoded({ extended: true }))
 app.use(bodyParser.json())
@@ -21,5 +28,5 @@ process.on('unhandledRejection', (e: string) => { console.error('rejection:', e)
 const httpServer = app.listen(3000, () => {
     console.log(`HTTP Server. Listening to port ${httpServer.address().port}`)
 
-    application.init()
+    application.init(httpServer)
 })
