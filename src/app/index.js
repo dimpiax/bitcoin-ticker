@@ -29,22 +29,17 @@ const startRequesting = async (delay: number = 0): Promise<void> => {
     await Utils.delay(delay)
 
     try {
-        const data = await currencyService.fetchData()
+        const currenciesData = await currencyService.fetchData()
         const relationRate = await currencyService.getRelationRates('EUR', ['USD'])
 
-        mainModel.currenciesData = data
+        mainModel.currenciesData = currenciesData
         mainModel.relationRate = relationRate
 
         // show in console
-        // OutputService.showCurrencies(data, relationRate)
+        OutputService.showCurrencies(currenciesData, relationRate)
 
         // emit for clients
-        NotificationCenter.post(Notification.outputFeed,
-            {
-                currenciesData: mainModel.currenciesData,
-                relationRate: mainModel.relationRate
-            }
-        )
+        NotificationCenter.post(Notification.outputFeed, OutputService.formatCurrencies(currenciesData, relationRate))
 
         startRequesting(System.args.interval)
     } catch (err) {

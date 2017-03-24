@@ -25,7 +25,7 @@ router.route('/')
 
 router.route('/render')
     .get((req: Object, res: Object) => {
-        res.render('index', { test: 'Meow' })
+        res.render('index', { title: 'Bitcoin ticker' })
     })
 
 export default router

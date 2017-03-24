@@ -7,13 +7,12 @@ import bodyParser from 'body-parser'
 import methodOverride from 'method-override'
 
 import application from './app'
-import NotificationCenter, { Notification } from './app/managers/notification-center'
 
 const app = express()
 
 app.set('views', path.join(__dirname, 'views'))
 app.set('view engine', 'jsx')
-app.engine('jsx', require('express-react-views').createEngine())
+app.engine('jsx', require('express-react-views').createEngine({ beautify: true }))
 
 app.use(morgan('dev'))
 app.use(bodyParser.urlencoded({ extended: true }))

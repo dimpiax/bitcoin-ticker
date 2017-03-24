@@ -12,14 +12,6 @@ export default class DefaultLayout extends React.Component {
 
                 <body>
                     { this.props.children }
-
-                    <script src="/socket.io/socket.io.js"/>
-                    <script dangerouslySetInnerHTML={{__html: `
-                        var socket = io();
-                        socket.on('data', (data) => {
-                            console.log('data:', data)
-                        })
-                    `}}/>
                 </body>
             </html>
         )

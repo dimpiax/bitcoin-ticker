@@ -11,7 +11,7 @@
   },
   "repository": {
     "type": "git",
-    "url": "git+ssh://git@bitbucket.org/dimpiax/ticker.git"
+    "url": "git+ssh://git@github.com:dimpiax/bitcoin-ticker.git"
   },
   "author": "Dima Pilipenko <dimpiax@gmail.com>",
   "license": "MIT",
