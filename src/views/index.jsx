@@ -25,11 +25,11 @@ export default class Test extends React.Component {
                         const date = new Date(Date.now())
                         dateDiv.innerHTML = date.toString()
 
-                        relationsDiv.innerHTML = '<b>Rate:</b> ' + data.relations
+                        relationsDiv.innerHTML = '<b>Rate:</b><br/>' + data.relations.join('<br/>')
 
                         feedDiv.innerHTML = ''
                         data.feed.forEach(el => {
-                            feedDiv.innerHTML += '<b>' + el.name + ':</b> ' + el.value.join(', ') + '<br/>'
+                            feedDiv.innerHTML += '<b>' + el.name + ':</b><br/>' + el.value.join('<br/>') + '<br/>'
                         })
                     })
                 `}} />

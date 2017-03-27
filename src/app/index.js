@@ -29,8 +29,10 @@ const startRequesting = async (delay: number = 0): Promise<void> => {
     await Utils.delay(delay)
 
     try {
-        const currenciesData = await currencyService.fetchData()
-        const relationRate = await currencyService.getRelationRates('EUR', ['USD'])
+        const currenciesData = await currencyService.fetchData(System.args.currencies)
+
+        const expireDuration = mainModel.expireRelationRateDuration
+        const relationRate = await currencyService.getRelationRates(System.args.currencies, expireDuration)
 
         mainModel.currenciesData = currenciesData
         mainModel.relationRate = relationRate

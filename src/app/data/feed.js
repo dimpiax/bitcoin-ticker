@@ -1,29 +1,29 @@
 /* @flow */
 
-import type { CurrencyType } from '../data/types'
+import Currency from './currency'
 
-import FeedTranslator from '../decoders/feed'
+import FeedTranslator from '../translators/feed'
 
 export default class Feed {
     _name: string
-    _baseCode: string
+    _currency: Currency
     _url: string
     _translator: FeedTranslator
-    _currencies: CurrencyType[]
+    _currencies: Currency[]
 
     get name(): string { return this._name }
-    get baseCode(): string { return this._baseCode }
+    get currency(): Currency { return this._currency }
     get url(): string { return this._url }
-    get currencies(): CurrencyType[] { return this._currencies }
+    get currencies(): Currency[] { return this._currencies }
 
-    constructor(name: string, baseCode: string, url: string, translator: FeedTranslator) {
+    constructor(name: string, currency: Currency, url: string, translator: FeedTranslator) {
         this._name = name
-        this._baseCode = baseCode
+        this._currency = currency
         this._url = url
         this._translator = translator
     }
 
-    setCurrencies(el: Object) {
-        this._currencies = this._translator.processCurrencies(el)
+    setCurrencies(el: Object, currencies: string[]) {
+        this._currencies = this._translator.processCurrencies(el, currencies)
     }
 }

@@ -22,7 +22,7 @@ app.use(methodOverride())
 
 app.use('/watch', require('./app/routes/watch').default)
 
-process.on('unhandledRejection', (e: string) => { console.error('rejection:', e) })
+process.on('unhandledRejection', (e: string) => { console.error('\nRejection\n', e) })
 
 const httpServer = app.listen(3000, () => {
     console.log(`HTTP Server. Listening to port ${httpServer.address().port}`)

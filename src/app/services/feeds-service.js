@@ -1,7 +1,9 @@
 /* @flow */
 
-import { BlockchainFeedTranslator, CoindeskFeedTranslator } from '../decoders/feed'
+import Currency from '../data/currency'
+
 import Feed from '../data/feed'
+import { BlockchainFeedTranslator, CoindeskFeedTranslator } from '../translators/feed'
 
 type FeedType = 'Blockchain' | 'CoinDesk'
 
@@ -15,8 +17,8 @@ class FeedsService {
 
     _getFeed(name: FeedType): Feed {
         switch (name) {
-            case 'Blockchain': return new Feed(name, 'BTC', 'https://blockchain.info/ticker', new BlockchainFeedTranslator())
-            case 'CoinDesk': return new Feed(name, 'BTC', 'http://api.coindesk.com/v1/bpi/currentprice.json', new CoindeskFeedTranslator())
+            case 'Blockchain': return new Feed(name, new Currency('BTC'), 'https://blockchain.info/ticker', new BlockchainFeedTranslator())
+            case 'CoinDesk': return new Feed(name, new Currency('BTC'), 'http://api.coindesk.com/v1/bpi/currentprice.json', new CoindeskFeedTranslator())
 
             default: throw new Error(`Unknown feed ${name}`)
         }

@@ -1,12 +1,18 @@
 /* @flow */
 
 class CLIArguments {
-    interval: number
-    delay: number
+    _interval: number
+    _delay: number
+    _currencies: string[]
+
+    get interval(): number { return this._interval }
+    get delay(): number { return this._delay }
+    get currencies(): string[] { return [...this._currencies] }
 
     constructor(args: string[]) {
-        this.interval = parseInt(this._findPair(args, ['--interval', '-i']) || 1000, 10)
-        this.delay = parseInt(this._findPair(args, ['--delay', '-d']) || 0, 10)
+        this._interval = parseInt(this._findPair(args, ['--interval', '-i']) || 1000, 10)
+        this._delay = parseInt(this._findPair(args, ['--delay', '-d']) || 0, 10)
+        this._currencies = (this._findPair(args, ['--curr', '-c']) || 'USD,EUR').split(',')
     }
 
     _findPair(base: string[], keysCase: string[]): ?string {
