@@ -10,7 +10,7 @@ import Feed from '../data/feed'
 import type { RelationRateType } from '../data/types'
 
 export default class OutputService {
-    static showCurrencies(data: Feed[], relationRate: ?RelationRateType) {
+    static showCurrencies(currencies: string[], data: Feed[], relationRate: ?RelationRateType) {
         let relationTable
         if (relationRate != null) {
             const currencyCode = relationRate.currency.code
@@ -23,17 +23,21 @@ export default class OutputService {
         }
 
         // build feed table output
-        const firstFeedData = data[0]
-        const currencyCode = firstFeedData.currency.code
-        const currencies = data[0].currencies.map((el: Currency): string => colors.white.bold(`${currencyCode}/${el.code}`))
         const feed = data
             .map((el: Feed): Object => {
-                const rates = el.currencies.map((c: Currency): string => c.rate)
-                return { [colors.bold.green(el.name)]: rates }
+                const currenciesData = el.currencies
+
+                if (currenciesData != null) {
+                    const rates = currenciesData.map((c: Currency): string => c.rate)
+                    return { [colors.bold.green(el.name)]: rates }
+                }
+
+                return { [colors.bold(el.name)]: currencies.map((_: string): string => '-') }
             })
 
         // add headers
-        feed.unshift({ [colors.dim.yellow.bold('Feed')]: currencies })
+        const relationCurrencies = currencies.map((el: string): string => colors.white.bold(`BTC/${el}`))
+        feed.unshift({ [colors.bold.grey('Feed')]: relationCurrencies })
 
         const feedTable = new Table()
         feed.forEach((el: Object) => { feedTable.push(el) })
@@ -45,7 +49,7 @@ export default class OutputService {
         console.log(feedTable.toString())
     }
 
-    static formatCurrencies(data: Feed[], relationRate: ?RelationRateType): { feed: { name: string, value: string[] }[], relations: ?string[] } {
+    static formatCurrencies(currencies: string[], data: Feed[], relationRate: ?RelationRateType): { feed: { name: string, value: string[] }[], relations: ?string[] } {
         let relations
         if (relationRate != null) {
             const currencyCode = relationRate.currency.code
@@ -57,8 +61,14 @@ export default class OutputService {
         // build feed table output
         const feed = data
             .map((el: Feed): Object => {
-                const rates = el.currencies.map((c: Currency): string => `${el.currency.code}/${c.code}: ${c.rate}`)
-                return { name: el.name, value: rates }
+                const currenciesData = el.currencies
+
+                if (currenciesData != null) {
+                    const rates = el.currencies.map((c: Currency): string => `${el.currency.code}/${c.code}: ${c.rate}`)
+                    return { name: el.name, value: rates }
+                }
+
+                return { name: el.name, value: currencies.map((_: string): string => '-') }
             })
 
         return { feed, relations }

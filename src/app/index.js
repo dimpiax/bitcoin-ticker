@@ -38,10 +38,10 @@ const startRequesting = async (delay: number = 0): Promise<void> => {
         mainModel.relationRate = relationRate
 
         // show in console
-        OutputService.showCurrencies(currenciesData, relationRate)
+        OutputService.showCurrencies(System.args.currencies, currenciesData, relationRate)
 
         // emit for clients
-        NotificationCenter.post(Notification.outputFeed, OutputService.formatCurrencies(currenciesData, relationRate))
+        NotificationCenter.post(Notification.outputFeed, OutputService.formatCurrencies(System.args.currencies, currenciesData, relationRate))
 
         startRequesting(System.args.interval)
     } catch (err) {

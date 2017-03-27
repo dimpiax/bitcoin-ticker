@@ -34,12 +34,8 @@ export default class RelationRateService {
 
             return this._relations
         } catch (err) {
-            if (this._relationRates != null) {
-                // in case of error it returns previous fetched data
-                return this._relations
-            }
-
-            throw err
+            // in case of error it returns previous fetched data or null
+            return this._relations
         }
     }
 }

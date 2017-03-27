@@ -13,13 +13,20 @@ class CurrencyService {
 
     async fetchData(currencies: string[]): Promise<Feed[]> {
         const feeds = feedsService.getTopicalFeeds()
+
         const feedsData = await Promise.all(
-            feeds.map((el: Feed): Promise<Object> => prequest({ uri: el.url, json: true }))
+            feeds.map((el: Feed): Promise<Object> =>
+                prequest({ uri: el.url, json: true })
+                    .catch((e: Error): any => null)
+                    .then((res: any): any => res)
+            )
         )
 
         feeds.forEach((el: Feed, i: number) => {
             const feedData = feedsData[i]
-            el.setCurrencies(feedData, [...currencies])
+            if (feedData) {
+                el.setCurrencies(feedData, [...currencies])
+            }
         })
 
         return feeds
