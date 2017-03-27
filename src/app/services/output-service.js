@@ -30,9 +30,6 @@ export default class OutputService {
             .map((el: Feed): Object => {
                 const rates = el.currencies.map((c: Currency): string => c.rate)
                 return { [colors.bold.green(el.name)]: rates }
-
-                // const rates = el.currencies.map((c: Currency): string => `${colors.green(`${el.currency.code}/${c.code}:`)} ${c.rate}`)
-                // return { [colors.bold.green(el.name)]: rates }
             })
 
         // add headers
