@@ -1,6 +1,6 @@
 {
   "name": "bitcoin-ticker",
-  "version": "0.0.1",
+  "version": "0.1.0",
   "description": "Bitcoins' currency listener, outputs relation rates data",
   "main": "src/server.js",
   "scripts": {
