@@ -27,8 +27,7 @@ class CLIArguments {
 }
 
 const cliArgs = new CLIArguments(process.argv.slice(2))
-const args = (): CLIArguments => cliArgs
 
 export default {
-    get args(): CLIArguments { return args() }
+    get args(): CLIArguments { return cliArgs }
 }

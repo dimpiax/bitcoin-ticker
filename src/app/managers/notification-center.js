@@ -12,7 +12,7 @@ export class Notification {
     }
 }
 
-class NotificationCenter {
+export default class NotificationCenter {
     static _emitter: EventEmitter = new EventEmitter()
 
     static setObserver(notification: Notification, callback: ({ data: Object }) => void) {
@@ -32,5 +32,3 @@ class NotificationCenter {
         NotificationCenter._emitter.emit(notification.name, data)
     }
 }
-
-export default NotificationCenter

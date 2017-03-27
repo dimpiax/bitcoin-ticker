@@ -1,7 +1,7 @@
 {
-  "name": "ticker",
+  "name": "bitcoin-ticker",
   "version": "0.0.1",
-  "description": "Bitcoins' currency listener, outputs data with comparison to USD/EUR in feed table",
+  "description": "Bitcoins' currency listener, outputs relation rates data",
   "main": "src/server.js",
   "scripts": {
     "start": "if [[ ${NODE_ENV} == 'production' ]]; then npm run start:prod; else npm run start:dev; fi",
@@ -15,7 +15,7 @@
   },
   "author": "Dima Pilipenko <dimpiax@gmail.com>",
   "license": "MIT",
-  "homepage": "https://bitbucket.org/dimpiax/ticker#readme",
+  "homepage": "https://github.com/dimpiax/bitcoin-ticker#readme",
   "devDependencies": {
     "babel-cli": "6.24.0",
     "babel-eslint": "7.2.0",

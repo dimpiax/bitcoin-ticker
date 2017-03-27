@@ -6,8 +6,6 @@ import FeedsService from '../src/app/services/feeds-service'
 
 describe('Feeds service', () => {
     it('should have BTC currencies', () => {
-        console.log(FeedsService.getTopicalFeeds())
-
         FeedsService.getTopicalFeeds().forEach((el: Feed) => {
             expect(el).to.have.property('currency')
             expect(el.currency).to.be.an.instanceof(Currency)
